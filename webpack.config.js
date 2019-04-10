@@ -7,15 +7,24 @@ module.exports = {
     output: {
         path: path.join(__dirname, './dist'),
         filename: 'bundle.[chunkhash].js',
-        publicPath: './dist/'
+        //publicPath: './dist/'
     },
     module: {
         rules: [
             {
+                test: /\.css$/,
                 use: ExtractTextPlugin.extract({
-                    use: 'css-loader'
+                    use: [{
+                        loader: 'css-loader',
+                        options: {
+                            url: false
+                        }
+                    
+                }, {
+                    loader: 'postcss-loader'
+                }] 
                 }),
-                test: /\.css$/
+                
             },
             {
             test: /\.(js)$/,
